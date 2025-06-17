@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Sertifikat Keloma Sampyong</title>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background-color: #f2f2f2;
+      padding: 50px;
+    }
+    .container {
+      background-color: white;
+      width: 800px;
+      margin: auto;
+      padding: 40px;
+      border: 5px solid #c19a6b;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    h1 {
+      color: #8b4513;
+    }
+    .name {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #2e2e2e;
+    }
+    .info {
+      margin-top: 30px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .signature {
+      margin-top: 60px;
+      text-align: center;
+    }
+    input {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .date {
+      margin-top: 20px;
+      font-style: italic;
+    }
+    #downloadBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #8b4513;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #downloadBtn:hover {
+      background-color: #5e3210;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="certificate">
+    <h1>SERTIFIKAT PENGHARGAAN</h1>
+    <p>Diberikan kepada:</p>
+    <div class="name" id="namaOutput">[Nama Peserta]</div>
+
+    <p class="info">
+      Atas partisipasinya dalam mengenal, mencintai, dan melestarikan budaya lokal Majalengka <br>
+      melalui media edukatif <strong>Keloma Sampyong</strong>.
+    </p>
+
+    <p class="date">Majalengka, <span id="tanggal"></span></p>
+
+    <div class="signature">
+      Pengembang Media<br><br><br>
+      <strong>Siti Aldian Nurjanah</strong>
+    </div>
+  </div>
+
+  <input type="text" id="namaInput" placeholder="Ketik namamu di sini" oninput="updateNama()">
+  <br>
+  <button id="downloadBtn" onclick="downloadCertificate()">Unduh Sertifikat</button>
+
+  <script>
+    function updateNama() {
+      const nama = document.getElementById("namaInput").value;
+      document.getElementById("namaOutput").textContent = nama || "[Nama Peserta]";
+    }
+
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById("tanggal").textContent = new Date().toLocaleDateString('id-ID', options);
+
+    function downloadCertificate() {
+      const element = document.getElementById("certificate");
+      html2canvas(element).then(function(canvas) {
+        const link = document.createElement("a");
+        link.download = "Sertifikat_Keloma_Sampyong.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+    }
+  </script>
+
+</body>
+</html>
